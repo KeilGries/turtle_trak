@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_animate: ^4.1.1+1
   font_awesome_flutter: ^10.4.0
   flutter:
     sdk: flutter

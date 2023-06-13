@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import "package:flutter/material.dart";
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() => runApp(TurtleTrak());
@@ -87,38 +88,44 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: const [
+        children: [
           Image(
             image: AssetImage('images/TurtleTrak.jpeg'),
             width: 400.0,
             height: 800.0,
             fit: BoxFit.fill,
           ),
-          Positioned(
-            top: 0,
-            bottom: 110,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Turtle',
-                  style: TextStyle(
-                    fontSize: 70,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 250, 248, 248),
+          Animate(
+            effects: [
+              FadeEffect(duration: Duration(milliseconds: 2400)),
+              // ScaleEffect(duration: Duration(milliseconds: 900)),
+            ],
+            child: Positioned(
+              top: 0,
+              bottom: 110,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Turtle',
+                    style: TextStyle(
+                      fontSize: 70,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 250, 248, 248),
+                    ),
                   ),
-                ),
-                Text(
-                  'Trak',
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontStyle: FontStyle.italic,
-                    color: Color.fromARGB(255, 0, 126, 0),
+                  Text(
+                    'Trak',
+                    style: TextStyle(
+                      fontSize: 50,
+                      fontStyle: FontStyle.italic,
+                      color: Color.fromARGB(255, 0, 126, 0),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
