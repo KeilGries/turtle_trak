@@ -64,6 +64,8 @@ flutter:
     - images/AldabraLizard.jpg
     - images/TurtleTrak.jpeg
     - images/HUH.png
+    - images/mock_climate_page.png
+    - images/mock_growth_chart.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
