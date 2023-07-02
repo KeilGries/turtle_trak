@@ -3,6 +3,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:turtle_trak/presentation/custom_icons_icons.dart';
 
 import 'pages/home_page.dart';
 import 'pages/growth_page.dart';
@@ -32,12 +33,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  final screens = [
-    HomePage(),
-    ClimatePage(),
-    GrowthPage(),
-    SettingsPage()
-  ];
+  final screens = [HomePage(), ClimatePage(), GrowthPage(), SettingsPage()];
 
   @override
   Widget build(BuildContext context) {

@@ -9,19 +9,20 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Animate(
-      effects: [
-              ScaleEffect(duration: Duration(milliseconds: 1000)),
+    return Scaffold(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        body: Animate(
+          effects: const [
+          ScaleEffect(duration: Duration(milliseconds: 1000))
             ],
-      child: Scaffold(
-        body: Center(
-        child: Image(
-          image: AssetImage('images/HUH.png'),
-          width: 400.0,
-          height: 800.0,
-          fit: BoxFit.fill,
+          child: Center(
+            child: Image(
+              image: AssetImage('images/HUH.png'),
+              width: 400.0,
+              height: 800.0,
+              fit: BoxFit.fill,
+          ),
         ),
-      ),
       ),
     );
   }

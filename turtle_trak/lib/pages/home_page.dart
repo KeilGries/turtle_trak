@@ -3,6 +3,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:turtle_trak/presentation/custom_icons_icons.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,6 +11,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+        backgroundColor: Colors.black87,
+        foregroundColor: Colors.white,
+      ),
       body: Stack(
         children: [
           Image(
@@ -19,7 +26,7 @@ class HomePage extends StatelessWidget {
             fit: BoxFit.fill,
           ),
           Animate(
-            effects: [
+            effects: const [
               FadeEffect(duration: Duration(milliseconds: 2400)),
               // ScaleEffect(duration: Duration(milliseconds: 900)),
             ],
@@ -30,7 +37,7 @@ class HomePage extends StatelessWidget {
               right: 0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Text(
                     'Turtle',
                     style: TextStyle(
