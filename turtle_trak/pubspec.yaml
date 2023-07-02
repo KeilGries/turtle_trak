@@ -41,6 +41,7 @@ dependencies:
   fl_chart: 
   flutter_dotenv:
   http:
+  intl: 
 
 dev_dependencies:
   flutter_test:

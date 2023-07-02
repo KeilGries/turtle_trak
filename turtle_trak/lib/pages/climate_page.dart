@@ -10,6 +10,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intl/intl.dart';
 
 Future<Climate> fetchClimate() async {
   await dotenv.load();
@@ -68,8 +69,13 @@ class Climate {
     List<dynamic> entries = sensorData as List<dynamic>;
 
     for (int i = 0; i < entries.length; i++) {
+      String time = entries[i]['observed'];
+      var dateValue =
+          new DateFormat("yyyy-MM-ddTHH:mm:ssZ").parseUTC(time).toLocal();
+      String formattedDate = DateFormat.yMd().add_jm().format(dateValue);
+
       Map<String, dynamic> entry = {
-        'observed': entries[i]['observed'],
+        'observed': formattedDate,
         'gateways': entries[i]['gateways'],
         'temperature': entries[i]['temperature'],
         'humidity': entries[i]['humidity'],
@@ -78,12 +84,16 @@ class Climate {
       entriesList.add(entry);
     }
 
+    print(entriesList);
+    print('--------------------------');
+    print(entriesList[0]['observed']);
+
     final latestSample = sensorData.isNotEmpty ? sensorData[0] : null;
 
     return Climate(
       temp: latestSample?['temperature']?.toDouble(),
       humidity: latestSample?['humidity']?.toDouble(),
-      obsTime: latestSample != null ? (latestSample['observed']) : null,
+      obsTime: entriesList[0]['observed'],
     );
   }
 }
@@ -116,12 +126,26 @@ class _ClimatePageState extends State<ClimatePage> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Observation Time: ${climate.obsTime}'),
-                  Text('Temperature: ${climate.temp}'),
-                  Text('Humidity: ${climate.humidity}'),
+                  Text(
+                    'Current Conditions',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
+                  ),
+                  Text('Observation Time: ${climate.obsTime}',
+                      textAlign: TextAlign.left),
+                  Text('Temperature: ${climate.temp}',
+                      textAlign: TextAlign.left),
+                  Text('Humidity: ${climate.humidity}',
+                      textAlign: TextAlign.left),
                   ElevatedButton(
-                    child: const Text('Print Climate Data'),
+                    child: const Text('Refresh'),
                     onPressed: () {
+                      setState(() {
+                        futureClimate = fetchClimate();
+                      });
                       print(climate.obsTime);
                       print(climate.temp);
                       print(climate.humidity);
