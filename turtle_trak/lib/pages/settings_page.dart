@@ -3,6 +3,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../widgets/line_chart_widget.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -10,7 +11,6 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Animate(
           effects: const [
           ScaleEffect(duration: Duration(milliseconds: 1000))

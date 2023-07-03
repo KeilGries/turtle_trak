@@ -73,6 +73,7 @@ flutter:
     - images/HUH.png
     - images/mock_climate_page.png
     - images/mock_growth_chart.png
+    - images/climate_bg.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

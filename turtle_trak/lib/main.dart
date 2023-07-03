@@ -40,13 +40,14 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Center(child: Text('TurtleTrak')),
-          backgroundColor: Color.fromARGB(255, 0, 126, 0),
+          centerTitle: true,
+          title: Text('TurtleTrak'),
+          backgroundColor: Color.fromARGB(220, 27, 59, 0),
         ),
         body: screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromARGB(255, 0, 126, 0),
+          backgroundColor: Color.fromARGB(220, 27, 59, 0),
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white54,
           showUnselectedLabels: false,

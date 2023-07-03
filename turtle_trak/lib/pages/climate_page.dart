@@ -11,6 +11,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
+import '../widgets/line_chart_widget.dart';
 
 Future<Climate> fetchClimate() async {
   await dotenv.load();
@@ -117,49 +118,135 @@ class _ClimatePageState extends State<ClimatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FutureBuilder<Climate>(
-          future: futureClimate,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final climate = snapshot.data!;
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Current Conditions',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  Text('Observation Time: ${climate.obsTime}',
-                      textAlign: TextAlign.left),
-                  Text('Temperature: ${climate.temp}',
-                      textAlign: TextAlign.left),
-                  Text('Humidity: ${climate.humidity}',
-                      textAlign: TextAlign.left),
-                  ElevatedButton(
-                    child: const Text('Refresh'),
-                    onPressed: () {
-                      setState(() {
-                        futureClimate = fetchClimate();
-                      });
-                      print(climate.obsTime);
-                      print(climate.temp);
-                      print(climate.humidity);
-                    },
-                  )
-                ],
-              );
-            }
-            if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-            return const CircularProgressIndicator();
-          },
-        ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/climate_bg.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: FutureBuilder<Climate>(
+              future: futureClimate,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final climate = snapshot.data!;
+                  return Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(milliseconds: 500)),
+                    ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Container(
+                        padding: EdgeInsets.only(top: 8),
+                        height: 170,
+                        width: 275,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 212, 207, 200),
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color.fromARGB(209, 27, 59, 0),
+                                spreadRadius: 3),
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3))
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text(
+                                'Current Conditions',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  // fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text(
+                                  'Observation Time: ${climate.obsTime}',
+                                  textAlign: TextAlign.left),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text('Temperature: ${climate.temp} °F',
+                                  textAlign: TextAlign.left),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text('Humidity: ${climate.humidity}%',
+                                  textAlign: TextAlign.left),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 10,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 89, 110, 129)),
+                                icon: Icon(Icons.refresh_outlined),
+                                label: Text('Refresh'),
+                                onPressed: () {
+                                  setState(() {
+                                    futureClimate = fetchClimate();
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(110.0),
+                  child: const CircularProgressIndicator(),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 40),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    fixedSize: Size(250, 60),
+                    elevation: 13,
+                    backgroundColor: Color.fromARGB(255, 89, 110, 129)),
+                icon: Icon(
+                  Icons.bar_chart_rounded,
+                  size: 35,
+                ),
+                label: Text('Display Graph', style: TextStyle(fontSize: 20)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LineChartWidget()),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
