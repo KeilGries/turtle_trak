@@ -1,1 +1,3 @@
 ORIGINAL backgroundColor: Color.fromARGB(255, 0, 126, 0)
+
+'Giant tortoise laying on a rocky shore, absorbing full island sunlight.'

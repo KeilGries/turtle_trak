@@ -144,14 +144,15 @@ class _ClimatePageState extends State<ClimatePage> {
                       child: Container(
                         padding: EdgeInsets.only(top: 8),
                         height: 170,
-                        width: 275,
+                        width: 240,
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 212, 207, 200),
+                          color: const Color.fromARGB(255, 212, 207, 200)
+                              .withOpacity(.8),
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                           boxShadow: [
-                            BoxShadow(
-                                color: Color.fromARGB(209, 27, 59, 0),
-                                spreadRadius: 3),
+                            // BoxShadow(
+                            //     color: Color.fromARGB(209, 27, 59, 0),
+                            //     spreadRadius: 3),
                             BoxShadow(
                                 color: Colors.black.withOpacity(0.5),
                                 spreadRadius: 5,
@@ -176,8 +177,7 @@ class _ClimatePageState extends State<ClimatePage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(2.0),
-                              child: Text(
-                                  'Observation Time: ${climate.obsTime}',
+                              child: Text('Time: ${climate.obsTime}',
                                   textAlign: TextAlign.left),
                             ),
                             Padding(
@@ -196,7 +196,8 @@ class _ClimatePageState extends State<ClimatePage> {
                                 style: ElevatedButton.styleFrom(
                                     elevation: 10,
                                     backgroundColor:
-                                        Color.fromARGB(255, 89, 110, 129)),
+                                        Color.fromARGB(255, 89, 110, 129)
+                                            .withOpacity(.9)),
                                 icon: Icon(Icons.refresh_outlined),
                                 label: Text('Refresh'),
                                 onPressed: () {
@@ -217,7 +218,10 @@ class _ClimatePageState extends State<ClimatePage> {
                 }
                 return Padding(
                   padding: const EdgeInsets.all(110.0),
-                  child: const CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.white.withOpacity(.75)),
+                  ),
                 );
               },
             ),
@@ -231,7 +235,8 @@ class _ClimatePageState extends State<ClimatePage> {
                     shape: StadiumBorder(),
                     fixedSize: Size(250, 60),
                     elevation: 13,
-                    backgroundColor: Color.fromARGB(255, 89, 110, 129)),
+                    backgroundColor:
+                        Color.fromARGB(255, 89, 110, 129).withOpacity(.9)),
                 icon: Icon(
                   Icons.bar_chart_rounded,
                   size: 35,
